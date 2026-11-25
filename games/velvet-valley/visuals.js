@@ -1,0 +1,9 @@
+import * as T from './three.js';
+export function enhance({scene,renderer,player,traffic,buildings,box,mat,sun}){
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.toneMappingExposure=1;scene.fog.color.set(0xb8c5c7);scene.fog.density=.0017;sun.color.set(0xffe3b1);sun.intensity=3.4;sun.shadow.normalBias=.025;
+const sky=new T.Mesh(new T.SphereGeometry(1400,32,20),new T.ShaderMaterial({side:T.BackSide,depthWrite:false,uniforms:{top:{value:new T.Color(0x648fa9)},bottom:{value:new T.Color(0xe6cdb3)}},vertexShader:'varying vec3 v; void main(){v=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',fragmentShader:'varying vec3 v; uniform vec3 top;uniform vec3 bottom;void main(){float h=clamp(normalize(v).y*1.5,0.,1.);gl_FragColor=vec4(mix(bottom,top,h),1.);}'}));scene.add(sky);
+const chrome=new T.MeshStandardMaterial({color:0xc3c8ca,metalness:.95,roughness:.19});for(const c of [player,...traffic.map(t=>t.c)]){for(const x of [-1,1]){box(.5,.12,.4,0x27383c,x*1.8,1.65,-.9,c);box(.4,.06,.06,0xb5b7ac,x*1.63,1.3,.25,c);for(const z of [-2,2]){const rim=new T.Mesh(new T.CylinderGeometry(.36,.36,.37,24),chrome);rim.rotation.z=Math.PI/2;rim.position.set(x*1.62,.65,z);c.add(rim)}}for(let i=0;i<9;i++)box(.14,.22,.05,0x131919,-1+i*.25,1.1,-3.35,c);for(const x of [-.7,.7])box(.11,.02,1.6,0xc3bda2,x,1.45,-2.35,c);c.traverse(o=>{if(o.material&&o.material.color&&o.material.color.getHex()===0x172329){o.material.roughness=.23;o.material.metalness=.65}})}
+for(let i=0;i<buildings.length;i+=3){const b=buildings[i];box(b.w*1.8,.22,2.3,i%2?0x6e4c3b:0x425a54,b.x,3.6,b.z+b.d-1);box(1.1,1.4,.05,0xb6a27d,b.x+3,2,b.z+b.d-.8);for(const x of [-1,1]){box(.12,3.5,.12,0x584d3d,b.x+x*(b.w-.5),1.7,b.z+b.d-1)}}
+for(let z=-275;z<280;z+=55){box(.18,8,.18,0x4a514c,12,4,z);box(3,.14,.2,0x4a514c,10.5,8,z);box(.8,.12,.5,0xc0b89d,9.3,7.9,z)}
+for(const key of [0x65402b,0x4e362b]){mat(key).roughness=.65}
+}

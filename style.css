@@ -15,6 +15,36 @@ footer i{margin-right:6px}
 .eyebrow{color:#f68c80;letter-spacing:.25em;margin:0 0 20px}
 h1{font:900 clamp(44px,7.6vw,145px)/.84 Barlow,Impact,"Arial Black",sans-serif;letter-spacing:-.035em;margin:0}
 h1 em{color:var(--red);font-style:normal}
+.enter-link{
+  display:inline-flex;
+  align-items:center;
+  gap:11px;
+  min-height:44px;
+  margin-top:clamp(16px,3vh,30px);
+  padding:0 15px;
+  border:1px solid #a14943;
+  border-radius:4px;
+  background:linear-gradient(#392423,#1b1011);
+  box-shadow:inset 0 1px #ffe0cb20,0 3px 7px #10080b99;
+  color:var(--ink);
+  font-size:11px;
+  letter-spacing:.2em;
+  text-decoration:none;
+  text-transform:uppercase;
+  pointer-events:auto;
+}
+.enter-link::after{
+  content:"";
+  border:4px solid transparent;
+  border-right:0;
+  border-left:5px solid var(--red);
+}
+.enter-link:hover,.enter-link:focus-visible{
+  border-color:var(--red);
+  background:linear-gradient(#512724,#271314);
+}
+.enter-link:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.off .enter-link{visibility:hidden}
 .product{position:absolute;z-index:2;inset:-10% -2% -10% 42%;touch-action:pan-y}
 .product.rendered{cursor:grab}
 .product.rendered:active{cursor:grabbing}

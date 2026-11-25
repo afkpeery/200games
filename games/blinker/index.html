@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100d19">
+  <meta name="description" content="Mash your keyboard in BLINKER, a 60-second arcade game with flashing multiplier keys.">
+  <title>BLINKER — 60-Second Arcade</title>
+  <link rel="preload" href="assets/barlow-condensed-black-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="effects.js" defer></script>
+  <script src="interface.js" defer></script>
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <main id="game" class="game" data-phase="ready" tabindex="-1">
+    <header class="masthead">
+      <div class="masthead-copy">
+        <div class="eyebrow"><span class="brand-mark" aria-hidden="true"><i class="icon icon-bolt"></i></span> 60-SECOND ARCADE</div>
+        <h1>BLINKER<span class="title-sparks" aria-hidden="true"><i></i><i></i><i></i></span></h1>
+        <p>Mash the keys. Catch the boosts.</p>
+      </div>
+      <div class="utility">
+        <button class="utility-button" type="button" id="sound-toggle" aria-pressed="true">
+          <i class="audio-icon" aria-hidden="true"><span></span></i><span class="sound-label">Sound on</span>
+        </button>
+        <button class="utility-button" type="button" id="help-button">
+          <i class="question-icon" aria-hidden="true">?</i> How to play
+        </button>
+      </div>
+    </header>
+
+    <div class="console">
+      <section id="stage" class="stage" aria-label="Animated game scene">
+        <div id="portrait-motion" class="portrait-motion">
+          <img id="portrait" class="portrait" src="assets/blinker-portrait.webp" width="1536" height="1024" fetchpriority="high" alt="A wide-eyed cartoon adult in a purple hoodie holds a glowing dab pen to his lips.">
+        </div>
+        <div class="stage-shade" aria-hidden="true"></div>
+        <canvas id="effects-canvas" class="effects-canvas" aria-hidden="true"></canvas>
+        <div class="stage-status">
+          <span class="status-dot" aria-hidden="true"></span><span id="stage-status">READY</span>
+        </div>
+        <div class="viewfinder" aria-hidden="true"></div>
+
+        <div class="start-overlay">
+          <button class="action-button" type="button" id="start-button"><i class="icon icon-play" aria-hidden="true"></i> Start round</button>
+          <p class="space-hint">or press <kbd>Space</kbd></p>
+        </div>
+
+        <div class="bonus-prompt" id="bonus-prompt" hidden>
+          <div class="bonus-caption"><i class="icon icon-bolt" aria-hidden="true"></i><span id="bonus-caption">BONUS KEY</span></div>
+          <button type="button" id="bonus-key" class="bonus-key" aria-label="Bonus key"></button>
+          <span class="bonus-tier"><strong id="bonus-value"></strong> BOOST</span>
+          <div class="bonus-track" aria-hidden="true"><span></span></div>
+        </div>
+
+        <div class="tap-control">
+          <button class="action-button" id="tap-button" type="button"><i class="icon icon-bolt" aria-hidden="true"></i> Tap to score</button>
+        </div>
+
+        <div class="result-overlay" aria-label="Round results">
+          <div class="result-readout">
+            <p class="result-title">TIME’S UP!</p>
+            <p><strong id="result-score">0</strong> <span>POINTS</span><span class="result-divider"></span><strong id="result-presses">0</strong> <span>PRESSES</span></p>
+          </div>
+          <button class="action-button" type="button" id="replay-button"><i class="icon icon-replay" aria-hidden="true">↻</i> Play again</button>
+        </div>
+      </section>
+
+      <aside class="hud" aria-label="Scoreboard">
+        <section class="hud-card timer-card" aria-labelledby="timer-heading">
+          <h2 class="hud-heading" id="timer-heading"><i class="icon icon-clock" aria-hidden="true"></i> TIME LEFT</h2>
+          <p id="timer" class="timer-value" role="timer">01:00</p>
+          <div id="timer-progress" class="timer-progress" role="progressbar" aria-label="Seconds remaining" aria-valuemin="0" aria-valuemax="60" aria-valuenow="60"><span></span></div>
+        </section>
+
+        <section class="hud-card score-card" aria-labelledby="score-heading">
+          <div class="score-main">
+            <h2 class="hud-heading" id="score-heading"><i class="icon icon-score" aria-hidden="true"></i> SCORE</h2>
+            <p id="score" class="score-value">0</p>
+          </div>
+          <div class="best-row">
+            <span><i class="icon icon-trophy" aria-hidden="true"></i> Personal best</span>
+            <strong id="best-score">0</strong>
+          </div>
+        </section>
+
+        <section class="hud-card boost-card" aria-labelledby="multiplier-heading">
+          <h2 class="hud-heading" id="multiplier-heading"><i class="icon icon-bolt" aria-hidden="true"></i> MULTIPLIER</h2>
+          <div class="boost-readout"><strong id="multiplier">1×</strong><span id="multiplier-time" hidden></span></div>
+          <div class="boost-tiers" aria-label="Available boosts">
+            <span class="tier tier-two" data-tier="2">2×</span>
+            <span class="tier tier-five" data-tier="5">5×</span>
+            <span class="tier tier-seven" data-tier="7">7×</span>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="game-footer" aria-label="Quick controls">
+      <div class="footer-rule"><i class="icon icon-keyboard" aria-hidden="true"></i><span><strong class="keyboard-copy">Mash any key</strong><strong class="touch-copy">Tap to score</strong> <span class="rule-detail">to rack up points</span></span></div>
+      <div class="footer-rule"><i class="icon icon-bolt" aria-hidden="true"></i><span><strong>Match the flashing key</strong> <span class="rule-detail">for a 3-second boost</span></span></div>
+    </footer>
+  </main>
+
+  <dialog id="help-dialog" class="help-dialog" aria-labelledby="help-title">
+    <div class="dialog-top">
+      <h2 id="help-title">How to play</h2>
+      <button id="close-help" class="dialog-close" type="button" aria-label="Close instructions" autofocus>×</button>
+    </div>
+    <ol>
+      <li>Start the round and press keys as fast as you can for one minute. Each separate press scores a point.</li>
+      <li>A random bonus key flashes for 2 seconds. Match it to score 2×, 5×, or 7× points for the next 3 seconds.</li>
+      <li>On a touchscreen, use <strong>Tap to score</strong> and tap the bonus key when it appears.</li>
+    </ol>
+  </dialog>
+</body>
+</html>

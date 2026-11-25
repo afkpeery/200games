@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0c1211">
+  <meta name="description" content="Explore Meridian after dark, bid on properties, build a venture portfolio, and furnish your penthouse.">
+  <title>AFTERMARKET — Night District</title>
+  <script type="module" crossorigin src="./assets/index-DART4Kw-.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/style-BOA7SJDa.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="wordmark" aria-label="Aftermarket"><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i></span><span>AFTERMARKET</span></div>
+      <div class="top-location"><span class="divider"></span><span id="district-label">FINANCIAL DISTRICT</span></div>
+      <div class="top-spacer"></div>
+      <div class="market-clock"><i></i><span id="market-state">MARKET OPEN</span><b id="day">DAY 01</b></div>
+      <button class="toolbar-button" id="settings-button" title="Game settings" aria-label="Game settings"><span class="settings-icon" aria-hidden="true">⚙︎</span></button>
+    </header>
+    <main id="stage" class="stage" aria-label="Financial District game view">
+      <canvas id="world" tabindex="0" aria-label="First-person 3D district"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="terminal-frame" aria-hidden="true">
+        <span class="terminal-rail"></span><span class="terminal-rail"></span>
+        <i></i><i></i><i></i><i></i>
+      </div>
+      <div id="waypoints" class="waypoints" aria-hidden="true"></div>
+      <aside class="objective hud-card" aria-label="Current objective">
+        <div class="hud-label"><span class="objective-icon" aria-hidden="true"></span> CURRENT OBJECTIVE</div>
+        <h1 id="objective-title">Raise your first capital</h1>
+        <p id="objective-description">Find the Foundry contact and pick up a paid gig.</p>
+        <div class="objective-target" id="objective-target"><span></span> FOUNDRY INCUBATOR</div>
+      </aside>
+      <aside class="wallet hud-card" aria-label="Finances and standing">
+        <div class="wallet-balances">
+          <div><div class="hud-label">AVAILABLE CASH</div><strong id="cash">$0</strong></div>
+          <div><div class="hud-label">NET WORTH</div><strong id="worth">$0</strong></div>
+        </div>
+        <div class="wallet-meters">
+          <div class="meter-row"><label for="rep">Reputation</label><span id="rep-value">50 / 100</span><meter id="rep" min="0" max="100" value="50"></meter></div>
+          <div class="meter-row heat"><label for="heat">Heat</label><span id="heat-value">00 / 100</span><meter id="heat" min="0" max="100" value="0"></meter></div>
+        </div>
+      </aside>
+      <div id="reticle" class="reticle" aria-hidden="true"></div>
+      <button type="button" id="interact" class="interact" hidden><kbd>E</kbd><span id="interact-label">Talk</span></button>
+      <div id="navigation-target" class="navigation-target" hidden><i aria-hidden="true"></i><span></span></div>
+      <div class="minimap hud-card">
+        <div class="minimap-head"><span id="map-caption">LOCAL MAP</span><span id="compass">N</span></div>
+        <canvas id="map" width="314" height="224" aria-label="Map of the district contacts"></canvas>
+        <button type="button" id="map-button" class="minimap-foot">District map</button>
+      </div>
+      <div class="entry" id="entry">
+        <div class="entry-rule"><span></span> MARKET SEED <b id="entry-seed">AFTERMARKET</b><span></span></div>
+        <button type="button" id="start-button" class="primary play-button"><span class="play-symbol" aria-hidden="true"></span><span id="start-label">Enter district</span></button>
+      </div>
+      <div class="phone-shortcut">
+        <button type="button" id="ticker-button" class="hud-card ticker-button" aria-label="Ticker’s field guide">
+          <img id="ticker-art" class="ticker-art" alt="" width="100" height="100">
+          <span class="ticker-button-copy"><strong>Ticker</strong><small>Field guide</small></span><kbd>H</kbd>
+        </button>
+        <button type="button" id="phone-button" class="hud-card phone-button"><span class="phone-icon" aria-hidden="true"></span><span><strong>Venture phone</strong><small>Portfolio &amp; contacts</small></span><kbd>TAB</kbd></button>
+      </div>
+      <div class="toast" id="toast" role="status" hidden></div>
+      <div id="touch-controls" class="touch-controls" hidden>
+        <div class="touch-pad" aria-label="Touch movement"><button data-key="KeyW" aria-label="Move forward">↑</button><button data-key="KeyA" aria-label="Move left">←</button><button data-key="KeyS" aria-label="Move backward">↓</button><button data-key="KeyD" aria-label="Move right">→</button><button class="touch-run" data-key="ShiftLeft" aria-label="Hold to run outdoors">Run</button></div>
+      </div>
+      <div class="fallback" id="fallback" hidden><h2>3D rendering unavailable</h2><p>This district requires a browser with WebGL 2. Enable graphics acceleration or try current Chrome or Firefox.</p></div>
+      <div class="modal-layer" id="modal-layer" hidden>
+        <section id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1"></section>
+      </div>
+    </main>
+    <footer class="controls-bar">
+      <div class="control-list"><span><kbd>WASD</kbd> Move</span><span><kbd>MOUSE</kbd> Look</span><span><kbd>E</kbd> Interact</span><span class="run-control"><kbd>SHIFT</kbd> Run</span><span><kbd>TAB</kbd> Phone</span><span><kbd>ESC</kbd> Pause</span></div>
+      <div class="footer-right"><button type="button" class="mute-button" id="mute-button" aria-pressed="false">Sound on</button><span class="footer-dot"></span><span>LOCAL SAVE</span></div>
+    </footer>
+  </div>
+</body>
+</html>
