@@ -1,0 +1,20 @@
+.sponsor-strip {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .65rem 1.25rem;
+  margin-top: 1.15rem;
+  padding: .85rem 1rem;
+  border: 1px solid #bcaeaa66;
+  border-radius: .45rem;
+  color: #fbf2e8;
+  background: #211c20;
+  font: 600 .88rem/1.35 system-ui, sans-serif;
+}
+.sponsor-label, .sponsor-title { display: block; }
+.sponsor-label { color: #d7c4b8; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
+.sponsor-title { margin-top: .16rem; font-size: 1rem; }
+.sponsor-cta { color: inherit; text-underline-offset: .22em; }
+.sponsor-cta:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
